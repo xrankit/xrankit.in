@@ -25,126 +25,168 @@
     />
   </head>
   <body class="card-footer">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-color">
-      <div class="container-fluid nav-font pt-1">
-        <a class="navbar-brand col-2 nav-name" href="#main">Ankit Yadav</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon position-relative justify-content-sm-end"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav justify-content-center">
-            <li class="nav-item">
-              <a class="nav-link active" href="#services">Key Skills</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#project">Projects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#about">About me</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#contact">Contact</a>
-            </li>
-            <li class="nav-item work-link d-none d-lg-block">
-              <a class="nav-link work-link-color" href="/contact.html">Let's Connect<i class="fas fa-chevron-right ps-1"></i></a>
-            </li>
-          </ul>
+ <!--Navigation bar-->
+ <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-color">
+  <div class="container-fluid nav-font pt-1">
+    <div
+      class="col-2 d-none d-sm-none d-md-none d-lg-none d-xl-block"
+    ></div>
+    <div
+      class="col-1 d-none d-sm-nonce d-md-none d-lg-block d-xl-none"
+    ></div>
+    <a class="navbar-brand col-2 nav-name" href="#main">
+      Ankit Yadav</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span
+        class="navbar-toggler-icon position-relative justify-content-sm-end"
+      ></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav justify-content-center">
+        <li class="nav-item services">
+          <a class="nav-link active" aria-current="page" href="#services"
+            >Key Skills</a
+          ><li class="nav-item">
+            <a class="nav-link active" href="#about">       </a>
+          </li>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#project">      Projects </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#about">       </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#about">  About me    </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#about">       </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#contact">    Contact    </a>
+        </li>
+        <li class="nav-item work-link d-none d-lg-block">
+          <a class="nav-link work-link-color" href="/contact.html"
+            > Let's Connect<i class="fas fa-chevron-right ps-1"></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    
+
+    <!--Background container-->
+    <div class="container-fluid background-main" id="main">
+      <!--Main image-->
+      <div class="container">
+        <div class="row icon-margin">
+          <div class="col" align="center">
+            <img
+              class="img-fluid icon mt-5"
+              src="/images/icon-1.png"
+              alt="Image of Ankit Yadav"
+            />
+          </div>
         </div>
       </div>
-    </nav>
-    
-<!-- Background container -->
-<div class="container-fluid background-main" id="main">
-  <!-- Main image -->
-  <div class="container">
-    <div class="row icon-margin">
-      <div class="col" align="center">
-        <img class="img-fluid icon mt-5" src="/images/icon-1.png" alt="Image of Ankit Yadav" />
+
+      <!--Name-->
+      <div class="container position-relative move-name d-none d-lg-block">
+        <div class="row row-cols-auto">
+          <div class="col-1 d-md-block d-none d-lg-none"></div>
+          <div class="col-sm-2 d-lg-block d-md-none"></div>
+          <div class="row name-card">
+            <div class="col-sm-1 col-sm-4">
+              <h3 class="pt-4 d-none d-lg-block hand">👋</h3>
+              <h3 class="pt-1 d-sm-none hand">👋</h3>
+            </div>
+            <div class="col-sm-1 col-sm-6 p-2">
+              Hey! I am <span class="name">Ankit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--UI designer-->
+      <div class="container position-relative d-none d-lg-block ui-design-card">
+        <div class="row row-cols-auto">
+          <div class="col-7"></div>
+          <div class="col skills-bubble name-card">Augmented Reality </div>
+        </div>
+      </div>
+
+      <!--2D Artist-->
+      <div class="container position-relative d-none d-lg-block artist-move">
+        <div class="row row-cols-auto">
+          <div class="col-6 d-none d-sm-none d-md-block d-lg-block"></div>
+          <div class="col artist name-card">Data Analyst</div>
+        </div>
+      </div>
+
+      <!--Name card for mobile-->
+      <div class="container d-block d-lg-none">
+        <div class="row row-cols-auto">
+          <div class="col-3"></div>
+          <div class="col-6" align="center">
+            <div class="col-sm-1 col-sm-6 p-2 salute" align="center">
+              👋 Hey! I am <span class="name">Ankit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Tittle-->
+      <div class="container position-relative moving-tittle">
+        <div class="row">
+          <!--Name Card for Mobile-->
+          <div class="col-12">
+            <h1 class="tittle d-sm-block d-md-none d-lg-block" align="center">
+              Data Analyst & Augmented Reality
+            </h1>
+            <h2
+              class="tittle-smaller d-none d-sm-none d-md-block d-lg-none"
+              align="center"
+            >
+              Augmented Reality
+            </h2>
+          </div>
+          <div class="col-12 based-in" align="center">
+            <h2 class="size-based">Based in Varanasi, India</h2>
+          </div>
+        </div>
+      </div>
+
+      <!--Button Let's work-->
+      <div class="container button-lets-work">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6" align="center">
+            <a
+              href="/contact.html"
+              class="nav-link work-link-color lets-work mb-3"
+              >Let's work! ></a
+            >
+          </div>
+
+          <!--Line vertical-->
+          <div class="col-3"></div>
+          <div class="container d-flex justify-content-center">
+            <div class="line"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-
-      <!-- Name -->
-<div class="container position-relative move-name d-none d-lg-block">
-  <div class="row row-cols-auto">
-    <div class="col-1 d-md-block d-none d-lg-none"></div>
-    <div class="col-sm-2 d-lg-block d-md-none"></div>
-    <div class="row name-card">
-      <div class="col-sm-1 col-sm-4">
-        <h3 class="pt-4 d-none d-lg-block hand">👋</h3>
-        <h3 class="pt-1 d-sm-none hand">👋</h3>
-      </div>
-      <div class="col-sm-1 col-sm-6 p-2">
-        Hey! I am <span class="name">Ankit</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- UI designer -->
-<div class="container position-relative d-none d-lg-block ui-design-card">
-  <div class="row row-cols-auto">
-    <div class="col-7"></div>
-    <div class="col skills-bubble name-card">Augmented Reality</div>
-  </div>
-</div>
-
-<!-- 2D Artist -->
-<div class="container position-relative d-none d-lg-block artist-move">
-  <div class="row row-cols-auto">
-    <div class="col-6 d-none d-sm-none d-md-block d-lg-block"></div>
-    <div class="col artist name-card">Data Analyst</div>
-  </div>
-</div>
-
-<!-- Name card for mobile -->
-<div class="container d-block d-lg-none">
-  <div class="row row-cols-auto">
-    <div class="col-3"></div>
-    <div class="col-6" align="center">
-      <div class="col-sm-1 col-sm-6 p-2 salute" align="center">
-        👋 Hey! I am <span class="name">Ankit</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-   <!-- Title -->
-<div class="container position-relative moving-title">
-  <div class="row">
-    <!-- Name Card for Mobile -->
-    <div class="col-12">
-      <h1 class="title d-sm-block d-md-none d-lg-block" align="center">
-        Data Analyst & Augmented Reality
-      </h1>
-      <h2 class="title-smaller d-none d-sm-none d-md-block d-lg-none" align="center">
-        Augmented Reality
-      </h2>
-    </div>
-    <div class="col-12 based-in" align="center">
-      <h2 class="size-based">Based in Varanasi, India</h2>
-    </div>
-  </div>
-</div>
-
-<!-- Button Let's work -->
-<div class="container button-lets-work">
-  <div class="row">
-    <div class="col-3"></div>
-    <div class="col-6" align="center">
-      <a href="/contact.html" class="nav-link work-link-color lets-work mb-3">Let's work! ></a>
-    </div>
-    <!-- Vertical Line -->
-    <div class="col-3"></div>
-    <div class="container d-flex justify-content-center">
-      <div class="line"></div>
-    </div>
-  </div>
-</div>
-
 
     <!--Quote-->
     <div class="container-fluid quote hide-me" id="quote">
@@ -154,13 +196,13 @@
       <div class="row">
         <div class="col-12">
           <h3 align="center" class="size-quote first-part-quote">
-            Building 3D Virtual Try-on for Eyewear | Hiring for Startups | AR/VR Prototyper & Consultant                   
+            Data Data Everywhere, be skilled in technology to represent                   
                                                     
           </h3>
         </div>
         <div class="col-12">
           <h3 align="center" class="size-quote second-part-quote">
-            Fintech Product Automation | Mentor & Speaker | Java, Spring & Selenium | ReactJs | Flutter + TheeJs| Tech Influencer 
+           the data in penetrable manner.
           </h3>
           <p align="center" class="steve-jobs">- Ankit Yadav</p>
         </div>
