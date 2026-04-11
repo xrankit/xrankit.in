@@ -1,259 +1,626 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Ace - 3D Virtual Tryon Startup</title>
-    <script src="https://kit.fontawesome.com/af5476175e.js" crossorigin="anonymous"></script>
-    <style>
-        :root {
-            --bg-page: #191919;
-            --text-main: #ffffff;
-            --text-dim: rgba(255, 255, 255, 0.45);
-            --text-faint: rgba(255, 255, 255, 0.15);
-            --border-notion: rgba(255, 255, 255, 0.09);
-            --toc-active: #474c50;
-            --toc-inactive: rgba(255, 255, 255, 0.1);
-        }
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Ace – 3D Virtual Try-On | Ankit Yadav</title>
+  <link rel="icon" type="image/jpg" href="/images/icon-2.PNG" />
 
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-            margin: 0;
-            font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 
-        .notion-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            padding-bottom: 20vh;
-        }
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/af5476175e.js" crossorigin="anonymous"></script>
 
-        /* Floating Sidebar (Notion Style) */
-        .notion-toc-sidebar {
-            position: fixed;
-            top: 150px;
-            right: 60px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 100;
-        }
-        .toc-bar { height: 2px; border-radius: 2px; transition: all 0.2s ease; }
+  <style>
+    :root {
+      --bg:        #0d0d0d;
+      --bg2:       #111111;
+      --bg3:       #171717;
+      --border:    rgba(255,255,255,0.08);
+      --border-hi: rgba(255,255,255,0.18);
+      --text:      #e8e8e8;
+      --text-dim:  rgba(232,232,232,0.55);
+      --accent:    #f7c948;
+      --accent2:   #9b6dff;
+      --green:     #4ade80;
+      --red:       #f87171;
+      --blue:      #60a5fa;
+      --pink:      #f472b6;
+    }
 
-        /* Media Header */
-        .notion-banner {
-            width: 100%;
-            height: 30vh;
-            max-height: 280px;
-            overflow: hidden;
-        }
-        .notion-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 37%;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Content Positioning */
-        .notion-main-content {
-            width: 100%;
-            max-width: 900px;
-            padding: 0 40px;
-            box-sizing: border-box;
-        }
+    html { scroll-behavior: smooth; }
 
-        .notion-icon-overlap {
-            margin-top: -80px;
-            margin-bottom: 20px;
-            width: 124px;
-            height: 124px;
-            z-index: 5;
-            position: relative;
-        }
-        .notion-icon-overlap img {
-            width: 100%;
-            height: 100%;
-            border-radius: 4px;
-            object-fit: cover;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
 
-        h1.notion-page-title {
-            font-size: 40px;
-            font-weight: 700;
-            margin: 0 0 15px 0;
-            letter-spacing: -0.5px;
-        }
+    /* ── NAVBAR ── */
+    .cs-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 52px;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 12px;
+    }
 
-        /* Property Grid */
-        .notion-properties-grid {
-            border-top: 1px solid var(--border-notion);
-            padding: 20px 0;
-            margin-bottom: 10px;
-        }
-        .prop-item {
-            display: flex;
-            align-items: flex-start;
-            min-height: 34px;
-            padding: 4px 0;
-        }
-        .prop-key {
-            width: 160px;
-            color: var(--text-dim);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-        .prop-val {
-            flex-grow: 1;
-            font-size: 14px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
+    .cs-nav a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      transition: color 0.2s;
+    }
+    .cs-nav a:hover { color: var(--text); }
+    .cs-nav .sep { color: var(--border-hi); font-size: 16px; }
+    .cs-nav .current { color: var(--text); font-weight: 500; }
 
-        /* Tags Palette */
-        .notion-badge { padding: 2px 8px; border-radius: 3px; font-size: 14px; line-height: 1.2; }
-        .bg-green { background: rgba(34, 56, 41, 0.5); color: #85d996; }
-        .bg-blue { background: rgba(30, 50, 60, 0.5); color: #7fbdff; }
-        .bg-yellow { background: rgba(53, 45, 30, 0.5); color: #e9d100; }
-        .bg-red { background: rgba(62, 31, 28, 0.5); color: #ff7369; }
-        .bg-gray { background: rgba(45, 45, 45, 0.5); color: #9b9b9b; }
-        .bg-purple { background: rgba(43, 30, 53, 0.5); color: #d19fff; }
-        .bg-pink { background: rgba(48, 29, 39, 0.5); color: #ff9fcc; }
-        .bg-orange { background: rgba(56, 38, 28, 0.5); color: #ffa344; }
-        .bg-brown { background: rgba(46, 36, 31, 0.5); color: #d08d66; }
+    .cs-nav .back-btn {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 14px;
+      font-size: 13px;
+      color: var(--text-dim);
+      transition: all 0.2s;
+    }
+    .cs-nav .back-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+    }
 
-        /* Media Embeds */
-        .notion-card-embed {
-            background: #202020;
-            border-radius: 4px;
-            margin: 20px 0;
-            overflow: hidden;
-            border: 1px solid var(--border-notion);
-        }
+    /* ── HERO BANNER ── */
+    .hero-banner {
+      margin-top: 52px;
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+    }
+    .hero-banner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 37%;
+      filter: brightness(0.6);
+    }
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, var(--bg) 100%);
+    }
 
-        .video-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        video { width: 100%; border-radius: 8px; background: #000; }
-        a { color: inherit; text-decoration: underline; opacity: 0.8; }
-        a:hover { opacity: 1; color: #7fbdff; }
+    /* ── PAGE ICON ── */
+    .page-icon-wrap {
+      position: relative;
+      margin-top: -60px;
+      margin-left: 48px;
+      z-index: 2;
+    }
+    .page-icon-wrap img {
+      width: 100px; height: 100px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 3px solid var(--bg);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
 
-        @media (max-width: 768px) {
-            .notion-main-content { padding: 0 20px; }
-            .notion-toc-sidebar { display: none; }
-            .video-row { grid-template-columns: 1fr; }
-        }
-    </style>
+    /* ── MAIN LAYOUT ── */
+    .page-body {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    /* ── TITLE ── */
+    .page-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 800;
+      line-height: 1.15;
+      color: #fff;
+      margin-top: 20px;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    /* ── PROPERTIES TABLE ── */
+    .props-table {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 4px 0;
+      margin-bottom: 40px;
+    }
+    .prop-row {
+      display: flex;
+      align-items: flex-start;
+      padding: 9px 20px;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+      font-size: 14px;
+    }
+    .prop-row:last-child { border-bottom: none; }
+    .prop-label {
+      width: 160px;
+      flex-shrink: 0;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+    }
+    .prop-label i { font-size: 12px; opacity: 0.7; }
+    .prop-value {
+      flex: 1;
+      color: var(--text);
+      word-break: break-word;
+    }
+    .prop-value a {
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .prop-value a:hover { text-decoration: underline; }
+
+    /* Tags */
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      padding: 0 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .tag-green  { background: rgba(74,222,128,0.12); color: #4ade80; }
+    .tag-yellow { background: rgba(250,204,21,0.12); color: #facc15; }
+    .tag-red    { background: rgba(248,113,113,0.12); color: #f87171; }
+    .tag-blue   { background: rgba(96,165,250,0.12); color: #60a5fa; }
+    .tag-purple { background: rgba(167,139,250,0.12); color: #a78bfa; }
+    .tag-pink   { background: rgba(244,114,182,0.12); color: #f472b6; }
+    .tag-orange { background: rgba(251,146,60,0.12);  color: #fb923c; }
+    .tag-gray   { background: rgba(156,163,175,0.12); color: #9ca3af; }
+    .tag-brown  { background: rgba(180,137,100,0.12); color: #b4896b; }
+
+    /* Status pill */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(96,165,250,0.1);
+      color: #60a5fa;
+      border-radius: 20px;
+      padding: 3px 12px 3px 10px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #60a5fa;
+      flex-shrink: 0;
+    }
+
+    /* ── SECTION HEADINGS ── */
+    .section-h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(22px, 3.5vw, 32px);
+      font-weight: 700;
+      color: #fff;
+      margin-top: 52px;
+      margin-bottom: 14px;
+      letter-spacing: -0.3px;
+    }
+    .section-h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 600;
+      color: #fff;
+      margin-top: 36px;
+      margin-bottom: 12px;
+    }
+    .section-h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    /* ── BODY TEXT ── */
+    .body-text {
+      color: var(--text-dim);
+      font-size: 15.5px;
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+    .body-text strong { color: var(--text); font-weight: 500; }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+    }
+
+    /* ── LOGO IMAGE ── */
+    .logo-block {
+      margin: 12px 0 28px;
+    }
+    .logo-block img {
+      height: 100px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── EMBED BLOCK ── */
+    .embed-block {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      margin: 16px 0 28px;
+    }
+    .embed-block iframe {
+      width: 100%;
+      display: block;
+      border: none;
+    }
+
+    /* ── FULL-WIDTH IMAGE ── */
+    .full-img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin: 16px 0 28px;
+      display: block;
+    }
+
+    /* ── VIDEO GRID ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0 28px;
+    }
+    @media (max-width: 640px) {
+      .video-grid { grid-template-columns: 1fr; }
+    }
+    .video-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      padding: 24px;
+      gap: 12px;
+      color: var(--text-dim);
+      font-size: 14px;
+      text-align: center;
+    }
+    .video-card i { font-size: 36px; color: var(--accent); }
+
+    /* ── PREV / NEXT NAV ── */
+    .case-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .case-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 22px;
+      text-decoration: none;
+      color: var(--text-dim);
+      font-size: 14px;
+      transition: all 0.2s;
+      flex: 1;
+      max-width: 260px;
+    }
+    .case-nav a:hover {
+      border-color: var(--border-hi);
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+    }
+    .case-nav a.next { justify-content: flex-end; }
+    .case-nav-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      display: block;
+    }
+    .case-nav-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      animation: fadeUp 0.5s ease both;
+    }
+    .fade-up-2 { animation-delay: 0.1s; }
+    .fade-up-3 { animation-delay: 0.2s; }
+    .fade-up-4 { animation-delay: 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .page-icon-wrap { margin-left: 20px; }
+      .page-body { padding: 0 16px 80px; }
+      .prop-label { width: 120px; }
+      .cs-nav { padding: 0 16px; }
+    }
+
+    .video-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px; /* Increased gap for a cleaner look */
+    margin: 16px 0 28px;
+    }
+
+    /* Ensure the cards don't force a minimum height that ruins the vertical look */
+    .video-card {
+    min-height: auto !important; 
+    }
+  </style>
 </head>
 <body>
 
-    <div class="notion-wrapper">
-        <div class="notion-toc-sidebar">
-            <div class="toc-bar" style="background: var(--toc-active); width: 16px;"></div>
-            <div class="toc-bar" style="background: var(--toc-inactive); width: 12px; margin-left: 4px;"></div>
-            <div class="toc-bar" style="background: var(--toc-inactive); width: 12px; margin-left: 4px;"></div>
-            <div class="toc-bar" style="background: var(--toc-inactive); width: 8px; margin-left: 8px;"></div>
+  <!-- NAV BREADCRUMB -->
+  <nav class="cs-nav">
+    <a href="/index.html"><i class="fas fa-home"></i> Home</a>
+    <span class="sep">/</span>
+    <a href="/index.html#universe">Case Studies</a>
+    <span class="sep">/</span>
+    <span class="current">Virtual Ace</span>
+    <a href="/index.html#universe" class="back-btn">
+      <i class="fas fa-arrow-left"></i> All Cases
+    </a>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+    <img src="/images/VirtualAce_Banner.png" alt="Virtual Ace Banner" />
+  </div>
+
+  <!-- PAGE ICON -->
+  <div class="page-icon-wrap fade-up">
+    <img src="/images/VirtuaAce.png" alt="Virtual Ace Logo" />
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="page-body">
+
+    <!-- TITLE -->
+    <h1 class="page-title fade-up fade-up-2">Virtual Ace — 3D Virtual Try-On Startup</h1>
+
+    <!-- PROPERTIES -->
+    <div class="props-table fade-up fade-up-3">
+
+      <div class="prop-row">
+        <div class="prop-label"><i class="fas fa-tag"></i> Category</div>
+        <div class="prop-value">
+          <span class="tag tag-green">Deep-tech Immersive Technologies</span>
         </div>
+      </div>
 
-        <div class="notion-banner">
-            <img src="../images/VirtualAce_Banner.png" alt="Virtual Ace Banner">
+      <div class="prop-row">
+        <div class="prop-label"><i class="fas fa-align-left"></i> Summary</div>
+        <div class="prop-value">3D &amp; Virtual Try-On | Drive Revenue and enhance the customer experience in Eyewear Industry.</div>
+      </div>
+
+      <div class="prop-row">
+        <div class="prop-label"><i class="fas fa-clock"></i> Duration</div>
+        <div class="prop-value">1.5 Years and Continuing</div>
+      </div>
+
+      <div class="prop-row">
+        <div class="prop-label"><i class="fas fa-circle-notch"></i> Status</div>
+        <div class="prop-value">
+          <span class="status-pill">
+            <span class="status-dot"></span> In Progress
+          </span>
         </div>
+      </div>
 
-        <main class="notion-main-content">
-            <div class="notion-icon-overlap">
-                <img src="../images/VirtuaAce.png" alt="Virtual Ace Icon">
-            </div>
+      <div class="prop-row">
+        <div class="prop-label"><i class="fab fa-figma"></i> Figma File</div>
+        <div class="prop-value">
+          <a href="https://www.figma.com/design/PZ4RIRGoqPTElVmtPiWeMp/VirtualAce?node-id=0-1&m=dev&t=gpyN1Ed6rsBT6kup-1" target="_blank" rel="noopener">
+            <i class="fab fa-figma"></i> Open VirtualAce on Figma ↗
+          </a>
+        </div>
+      </div>
 
-            <h1 class="notion-page-title">Virtual Ace - 3D Virtual Tryon Startup</h1>
+      <div class="prop-row">
+        <div class="prop-label"><i class="fas fa-globe"></i> Website</div>
+        <div class="prop-value">
+          <a href="https://www.virtualace.in/" target="_blank" rel="noopener">www.virtualace.in ↗</a>
+        </div>
+      </div>
 
-            <div class="notion-properties-grid">
-                <div class="prop-item">
-                    <div class="prop-key"><i class="fas fa-arrow-circle-down"></i> Category</div>
-                    <div class="prop-val"><span class="notion-badge bg-green">Deep-tech Immersive Technologies</span></div>
-                </div>
-                <div class="prop-item">
-                    <div class="prop-key"><i class="fas fa-align-left"></i> Summary</div>
-                    <div class="prop-val">3D & Virtual Try-On | Drive Revenue and enhance the customer experience in Eyewear Industry.</div>
-                </div>
-                <div class="prop-item">
-                    <div class="prop-key"><i class="fas fa-clock"></i> Time to complete</div>
-                    <div class="prop-val">1.5 Years and Continue</div>
-                </div>
-                <div class="prop-item">
-                    <div class="prop-key"><i class="fab fa-figma"></i> Figma File</div>
-                    <div class="prop-val"><a href="https://www.figma.com/design/PZ4RIRGoqPTElVmtPiWeMp/VirtualAce" target="_blank">View Figma Designs</a></div>
-                </div>
-                <div class="prop-item">
-                    <div class="prop-key"><i class="fas fa-link"></i> Website</div>
-                    <div class="prop-val"><a href="https://www.virtualace.in/" target="_blank">www.virtualace.in</a></div>
-                </div>
-                <div class="prop-item">
-                    <div class="prop-key"><i class="fas fa-list"></i> Tags</div>
-                    <div class="prop-val">
-                        <span class="notion-badge bg-green">User research</span>
-                        <span class="notion-badge bg-yellow">Wireframing</span>
-                        <span class="notion-badge bg-red">Website</span>
-                        <span class="notion-badge bg-brown">Product Roadmapping</span>
-                        <span class="notion-badge bg-purple">Customer Journey Map</span>
-                        <span class="notion-badge bg-pink">Figma</span>
-                        <span class="notion-badge bg-blue">Metrics</span>
-                        <span class="notion-badge bg-orange">Product Analytics</span>
-                        
-                        <span class="notion-badge bg-yellow">Market Research</span>
-                        <span class="notion-badge bg-gray">Competitor Analysis</span>
-                        <span class="notion-badge bg-blue">Product Teardown</span>
-                        <span class="notion-badge bg-red">Product Strategy</span>
-                        <span class="notion-badge bg-yellow">Business Model</span>
-                        <span class="notion-badge bg-blue">Startup</span>
-                        <span class="notion-badge bg-green">Pitch Deck</span>
-                        <span class="notion-badge bg-gray">Web Development</span>
-                    </div>
-                </div>
-                <div class="prop-item">
-                    <div class="prop-key"><i class="fas fa-hashtag"></i> ID</div>
-                    <div class="prop-val" style="color: var(--text-faint);">PCS-9</div>
-                </div>
-            </div>
+      <div class="prop-row">
+        <div class="prop-label"><i class="fas fa-hashtag"></i> ID</div>
+        <div class="prop-value" style="color: var(--text-dim); font-size: 13px;">PCS-9</div>
+      </div>
 
-            <div class="notion-body-text">
-                <p>Virtual Ace leverages the power of 3D and data-driven solutions to transcend the traditional Eyewear Industry experience to new dimensions. We enable brands and online retailers to produce, distribute, and leverage photorealistic 3D models at scale for Augmented Reality experiences on all digital platforms.</p>
-            </div>
+      <div class="prop-row">
+        <div class="prop-label" style="align-self: flex-start; padding-top: 4px;"><i class="fas fa-tags"></i> Tags</div>
+        <div class="prop-value">
+          <div class="tags-wrap">
+            <span class="tag tag-green">User Research</span>
+            <span class="tag tag-yellow">Wireframing</span>
+            <span class="tag tag-red">Website</span>
+            <span class="tag tag-brown">Product Roadmapping</span>
+            <span class="tag tag-purple">Customer Journey Map</span>
+            <span class="tag tag-pink">Figma</span>
+            <span class="tag tag-blue">Metrics</span>
+            <span class="tag tag-orange">Product Analytics</span>
+            <span class="tag tag-yellow">Market Research</span>
+            <span class="tag tag-gray">Competitor Analysis</span>
+            <span class="tag tag-blue">Product Teardown</span>
+            <span class="tag tag-red">Product Strategy</span>
+            <span class="tag tag-yellow">Business Model</span>
+            <span class="tag tag-blue">Startup</span>
+            <span class="tag tag-green">Pitch Deck</span>
+            <span class="tag tag-gray">Web Development</span>
+          </div>
+        </div>
+      </div>
 
-            <h2 style="font-size: 1.5em; margin-top: 2em; font-weight: 600;">Pitch Deck Presentation</h2>
-            <div class="notion-card-embed" style="height: 428px;">
-                <iframe src="https://www.canva.com/design/DAFiIG68QXw/96uYW4BNrcUI0g210ctEnw/view?embed" style="width: 100%; height: 100%; border: none;"></iframe>
-            </div>
-
-            <h2 style="font-size: 1.5em; margin-top: 2em; font-weight: 600;">Product User Flow</h2>
-            
-            <div class="notion-card-embed">
-                <img src="../images/VAR_flow_of_product_page.png" style="width: 100%;" alt="Virtual Ace User Flow">
-            </div>
-
-            <h2 style="font-size: 1.5em; margin-top: 2em; font-weight: 600;">Product Road Mapping</h2>
-            
-            <div class="notion-card-embed" style="height: 334px;">
-                <iframe src="https://miro.com/app/live-embed/uXjVMeGN1Ro=/?embedMode=view_only_without_ui" style="width: 100%; height: 100%; border: none;"></iframe>
-            </div>
-
-            <h2 style="font-size: 1.5em; margin-top: 2em; font-weight: 600;">Demo Videos</h2>
-            <div class="video-row">
-                <video controls><source src="../video/post.mp4" type="video/mp4"></video>
-                <video controls><source src="../video/clo.mp4" type="video/mp4"></video>
-            </div>
-        </main>
     </div>
 
+    <div class="section-divider"></div>
+
+    <!-- ABOUT SECTION -->
+    <div class="logo-block">
+      <img src="/images/VirtuaAce.png" alt="Virtual Ace" />
+    </div>
+
+    <h2 class="section-h1">Virtual Ace</h2>
+
+    <p class="body-text">
+      Virtual Ace leverages the power of 3D &amp; data-driven solutions to transcend the traditional Eyewear Industry experience to new dimensions, enabling brands and online retailers to provide a truly immersive and engaging customer experience.
+    </p>
+    <p class="body-text">
+      Virtual Ace helps brands and online retailers produce, distribute, and leverage photorealistic 3D models at scale for Augmented Reality experiences on all digital platforms.
+    </p>
+    <p class="body-text">
+      <strong>Website:</strong> <a href="https://www.virtualace.in/" target="_blank" rel="noopener" style="color: var(--blue);">www.virtualace.in</a>
+    </p>
+    <p class="body-text">
+      <strong>Industry:</strong> Technology, Information and Internet
+    </p>
+    <p class="body-text">
+      <strong>Specialties:</strong> Computer Vision, ThreeJs, Augmented Reality, JavaScript, 3D Modelling, Machine Learning, C#, and Unity3D
+    </p>
+
+    <div class="section-divider"></div>
+
+    <!-- PITCH DECK -->
+    <h2 class="section-h2">3D Virtual Try-On Presentation — Pitch Deck</h2>
+    <div class="embed-block">
+      <iframe
+        src="https://www.canva.com/design/DAFiIG68QXw/96uYW4BNrcUI0g210ctEnw/view?embed&meta"
+        height="480"
+        allowfullscreen
+        sandbox="allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin allow-storage-access-by-user-activation allow-popups-to-escape-sandbox"
+      ></iframe>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- PRODUCT FLOW -->
+    <h2 class="section-h2">Virtual Ace — Flow of Product Page</h2>
+    <img
+      class="full-img"
+      src="/images/VAR_flow_of_product_page.png"
+      alt="Virtual Ace Product Flow"
+    />
+
+    <div class="section-divider"></div>
+
+    <!-- PRODUCT ROADMAP -->
+    <h2 class="section-h2">Virtual Ace — Product Road Mapping</h2>
+    <div class="embed-block">
+      <iframe
+        src="https://miro.com/app/live-embed/uXjVPiMxhGY=/?moveToViewport=-1009,-572,2543,1258&embedId=960694097484"
+        height="400"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- VIDEOS -->
+    <h3 class="section-h3">Videos</h3>
+    <div class="video-grid">
+    <div class="video-card" style="padding: 0; background: none; border: none;">
+        <video width="100%" height="auto" controls style="border-radius: 14px; display: block; background: #000;">
+        <source src="video/post.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        <p style="margin-top: 12px;">Virtual Ace Demo Video 1<br>
+        <span style="font-size:12px; color: var(--text-dim);">Product walkthrough</span>
+        </p>
+    </div>
+
+    <div class="video-card" style="padding: 0; background: none; border: none;">
+        <video width="100%" height="auto" controls style="border-radius: 14px; display: block; background: #000;">
+        <source src="video/clo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+        </video>
+        <p style="margin-top: 12px;">Virtual Ace Demo Video 2<br>
+        <span style="font-size:12px; color: var(--text-dim);">AR try-on experience</span>
+        </p>
+    </div>
+    </div>
+
+    <!-- PREV / NEXT NAVIGATION -->
+    <div class="case-nav">
+      <a href="whatsappPayment.html">
+        <i class="fas fa-arrow-left"></i>
+        <div>
+          <span class="case-nav-label">Previous</span>
+          <span class="case-nav-title">WhatsApp Payment</span>
+        </div>
+      </a>
+      <a href="amazonZFactor.html" class="next">
+        <div style="text-align:right">
+          <span class="case-nav-label">Next</span>
+          <span class="case-nav-title">Amazon — Z Factor</span>
+        </div>
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </div><!-- end page-body -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
