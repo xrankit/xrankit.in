@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon - Add ‘Z’ factor Gamification</title>
+    <script src="https://kit.fontawesome.com/af5476175e.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg-page: #191919;
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.45);
+            --text-faint: rgba(255, 255, 255, 0.15);
+            --border-notion: rgba(255, 255, 255, 0.09);
+            --toc-active: #474c50;
+            --toc-inactive: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            margin: 0;
+            font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        .notion-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; padding-bottom: 20vh; }
+        
+        /* Floating Sidebar */
+        .notion-toc-sidebar {
+            position: fixed; top: 150px; right: 60px; display: flex; flex-direction: column; gap: 12px; z-index: 100;
+        }
+        .toc-bar { height: 2px; border-radius: 2px; transition: all 0.2s ease; }
+
+        /* Media Header */
+        .notion-banner { width: 100%; height: 30vh; max-height: 280px; overflow: hidden; }
+        .notion-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 87%; }
+
+        .notion-main-content { width: 100%; max-width: 900px; padding: 0 40px; box-sizing: border-box; }
+
+        .notion-icon-overlap {
+            margin-top: -80px; margin-bottom: 20px; width: 124px; height: 124px; z-index: 5; position: relative;
+        }
+        .notion-icon-overlap img { width: 100%; height: 100%; border-radius: 4px; object-fit: cover; }
+
+        h1.notion-page-title { font-size: 40px; font-weight: 700; margin: 0 0 15px 0; letter-spacing: -0.5px; }
+
+        /* Property Table */
+        .notion-properties-grid { border-top: 1px solid var(--border-notion); padding: 20px 0; margin-bottom: 10px; }
+        .prop-item { display: flex; align-items: flex-start; min-height: 34px; padding: 4px 0; }
+        .prop-key { width: 160px; color: var(--text-dim); font-size: 14px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .prop-val { flex-grow: 1; font-size: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+        /* Tags */
+        .notion-badge { padding: 2px 8px; border-radius: 3px; font-size: 14px; line-height: 1.2; }
+        .bg-green { background: rgba(34, 56, 41, 0.5); color: #85d996; }
+        .bg-blue { background: rgba(30, 50, 60, 0.5); color: #7fbdff; }
+        .bg-yellow { background: rgba(53, 45, 30, 0.5); color: #e9d100; }
+        .bg-red { background: rgba(62, 31, 28, 0.5); color: #ff7369; }
+        .bg-gray { background: rgba(45, 45, 45, 0.5); color: #9b9b9b; }
+        .bg-purple { background: rgba(43, 30, 53, 0.5); color: #d19fff; }
+        .bg-pink { background: rgba(48, 29, 39, 0.5); color: #ff9fcc; }
+        .bg-orange { background: rgba(56, 38, 28, 0.5); color: #ffa344; }
+        .bg-brown { background: rgba(46, 36, 31, 0.5); color: #d08d66; }
+
+        .notion-card-embed { background: #202020; border-radius: 4px; margin: 20px 0; overflow: hidden; border: 1px solid var(--border-notion); }
+        .notion-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; border: 1px solid var(--border-notion); }
+        .notion-table td, .notion-table th { border: 1px solid var(--border-notion); padding: 12px; text-align: left; }
+        
+        a { color: inherit; text-decoration: underline; opacity: 0.8; }
+        
+        @media (max-width: 768px) { .notion-main-content { padding: 0 20px; } .notion-toc-sidebar { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div class="notion-wrapper">
+        <div class="notion-toc-sidebar">
+            <div class="toc-bar" style="background: var(--toc-active); width: 16px;"></div>
+            <div class="toc-bar" style="background: var(--toc-inactive); width: 12px; margin-left: 4px;"></div>
+            <div class="toc-bar" style="background: var(--toc-inactive); width: 12px; margin-left: 4px;"></div>
+        </div>
+
+        <div class="notion-banner">
+            <img src="image/amazon_fashion_banner.png" alt="Amazon Fashion Banner">
+        </div>
+
+        <main class="notion-main-content">
+            <div class="notion-icon-overlap">
+                <img src="image/amazon_icon.png" alt="Amazon Icon">
+            </div>
+
+            <h1 class="notion-page-title">Amazon - Add ‘Z’ factor Gamification</h1>
+
+            <div class="notion-properties-grid">
+                <div class="prop-item">
+                    <div class="prop-key"><i class="fas fa-arrow-circle-down"></i> Category</div>
+                    <div class="prop-val">E-Commerce</div>
+                </div>
+                <div class="prop-item">
+                    <div class="prop-key"><i class="fas fa-align-left"></i> Summary</div>
+                    <div class="prop-val">Putting the ‘Z’ in Amazon Fashion</div>
+                </div>
+                <div class="prop-item">
+                    <div class="prop-key"><i class="fas fa-clock"></i> Time to complete</div>
+                    <div class="prop-val">3 Months</div>
+                </div>
+                <div class="prop-item">
+                    <div class="prop-key"><i class="fab fa-figma"></i> Figma File</div>
+                    <div class="prop-val"><a href="https://www.figma.com/board/hCllnLeeODVKKMhulOLOuv/Ideation-%26-Solutions" target="_blank">Ideation & Solutions</a></div>
+                </div>
+                <div class="prop-item">
+                    <div class="prop-key"><i class="fas fa-burst"></i> Status</div>
+                    <div class="prop-val"><span class="notion-badge bg-green">Done</span></div>
+                </div>
+                <div class="prop-item">
+                    <div class="prop-key"><i class="fas fa-list"></i> Tags</div>
+                    <div class="prop-val">
+                        <span class="notion-badge bg-yellow">Business Model</span>
+                        <span class="notion-badge bg-red">Product Strategy</span>
+                        <span class="notion-badge bg-blue">Product Teardown</span>
+                        <span class="notion-badge bg-gray">Competitor Analysis</span>
+                        <span class="notion-badge bg-orange">Product Analytics</span>
+                        <span class="notion-badge bg-blue">Metrics</span>
+                        <span class="notion-badge bg-purple">Customer Journey Map</span>
+                        <span class="notion-badge bg-brown">Product Roadmapping</span>
+                        <span class="notion-badge bg-yellow">Wireframing</span>
+                        <span class="notion-badge bg-green">User research</span>
+                        <span class="notion-badge bg-pink">KPI</span>
+                    </div>
+                </div>
+                <div class="prop-item">
+                    <div class="prop-key"><i class="fas fa-link"></i> Project Docs</div>
+                    <div class="prop-val"><a href="https://bit.ly/AmazonProductDesign" target="_blank">bit.ly/AmazonProductDesign</a></div>
+                </div>
+                <div class="prop-item">
+                    <div class="prop-key"><i class="fas fa-hashtag"></i> ID</div>
+                    <div class="prop-val" style="color: var(--text-faint);">PCS-13</div>
+                </div>
+            </div>
+
+            <section>
+                <h3>Company Background</h3>
+                <p>Amazon, one of the world’s largest e-commerce platforms, offers a wide range of products including electronics, fashion, home goods, and more.</p>
+                
+                <div class="notion-card-embed">
+                    <img src="image/amazon_flywheel.png" style="width: 100%;" alt="Amazon Business Model">
+                </div>
+
+                <h3>Scenario</h3>
+                <p>Amazon has noticed a drop in repeat purchases among new customers, particularly in the fashion segment. While initial acquisition rates are high, many new users are not making subsequent purchases.</p>
+            </section>
+
+            <section>
+                <h2 style="background: rgba(34, 56, 41, 0.2); padding: 5px 10px; border-radius: 4px;">1. Business Model Analysis</h2>
+                <div class="notion-card-embed">
+                    <img src="image/business_model_canvas.png" style="width: 100%;" alt="Business Model Analysis">
+                </div>
+                <p>Amazon caters to a broad audience including individual consumers and businesses. In the fashion segment (launched in 2002), they aim for a diverse shopping experience with features like "Prime Wardrobe" and "StyleSnap."</p>
+            </section>
+
+            <section>
+                <h2 style="background: rgba(34, 56, 41, 0.2); padding: 5px 10px; border-radius: 4px;">2. Business Value Proposition</h2>
+                <table class="notion-table">
+                    <tr>
+                        <th>Why should we improve?</th>
+                        <th>Benefits</th>
+                    </tr>
+                    <tr>
+                        <td>• Repeat purchases affect profitability<br>• Increases growth of customer base<br>• Attractive pricing improves UX</td>
+                        <td>• Increases CLV (Customer Lifetime Value)<br>• Reduces CAC (Customer Acquisition Costs)<br>• Competitive advantage</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <h2 style="background: rgba(34, 56, 41, 0.2); padding: 5px 10px; border-radius: 4px;">6. Ideation & Decision-Making</h2>
+                <div class="notion-card-embed">
+                    <img src="image/Ideation.png" style="width: 100%;" alt="Ideation Process">
+                </div>
+                <div class="notion-card-embed">
+                    <img src="image/Impact_Effort.png" style="width: 100%;" alt="Impact vs Effort">
+                </div>
+            </section>
+
+            <section>
+                <h2 style="background: rgba(34, 56, 41, 0.2); padding: 5px 10px; border-radius: 4px;">7. Product Design</h2>
+                <div class="notion-card-embed">
+                    <img src="image/wireframe_tabs.png" style="width: 100%;" alt="Wireframe Designs">
+                </div>
+                <p>The wireframes focused on creating a dedicated corner for fashion trends based on Gen Z and Millennial preferences, cleaning up the UI "mess" noted in research.</p>
+            </section>
+
+            <section>
+                <h2 style="background: rgba(34, 56, 41, 0.2); padding: 5px 10px; border-radius: 4px;">8. Metrics & Analytics</h2>
+                <table class="notion-table">
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Metric</th>
+                        <th>Tool</th>
+                    </tr>
+                    <tr>
+                        <td>Community</td>
+                        <td>Active Users / Retention</td>
+                        <td>Mixpanel</td>
+                    </tr>
+                    <tr>
+                        <td>Gamification</td>
+                        <td>Reward Redemption Rate</td>
+                        <td>In-app Analytics</td>
+                    </tr>
+                    <tr>
+                        <td>Business</td>
+                        <td>Repeat Purchase Rate / AOV</td>
+                        <td>Purchase History</td>
+                    </tr>
+                </table>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
